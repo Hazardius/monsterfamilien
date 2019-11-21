@@ -5,6 +5,7 @@ import fogImage from './assets/fog2.png'
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import backgroundTopImage from "./assets/photo-elements/bergen-bryggen_1920.jpg";
+import bossnettetImage from "./assets/photo-elements/bossnettet.jpg";
 import soilLayerImage from "./assets/photo-elements/soil-layer_1280.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
@@ -26,6 +27,7 @@ export default class Logo extends Phaser.Scene {
         this.load.atlasXML('zombie', zombieImage, zombieXml);
         this.load.json('shapes', shapeZombie);
         this.load.image('background-top', backgroundTopImage);
+        this.load.image('bossnettet', bossnettetImage);
         this.load.image('logo', logoImg);
         this.load.image('red', logoRed);
         this.load.image('soil-layer', soilLayerImage)
@@ -146,12 +148,21 @@ export default class Logo extends Phaser.Scene {
         const trash_pipe_mixed = this.add.sprite(300, 250, "background", "tower.png");
         trash_pipe_mixed.tint = 0x00FF00;
         trash_pipe_mixed.setDisplaySize(75, 400);
+        const trash_can_mixed = this.add.sprite(300, 200, "bossnettet");
+        trash_can_mixed.tint = 0x00FF00;
+        trash_can_mixed.setDisplaySize(75, 133);
         const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png");
         trash_pipe_paper.tint = 0x0000FF;
         trash_pipe_paper.setDisplaySize(75, 400);
+        const trash_can_paper = this.add.sprite(400, 200, "bossnettet");
+        trash_can_paper.tint = 0x0000FF;
+        trash_can_paper.setDisplaySize(75, 133);
         const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png");
         trash_pipe_plastic.tint = 0xFFFFFF;
         trash_pipe_plastic.setDisplaySize(75, 400);
+        const trash_can_plastic = this.add.sprite(500, 200, "bossnettet");
+        trash_can_plastic.tint = 0xFFFFFF;
+        trash_can_plastic.setDisplaySize(75, 133);
 
         let lastTime = 0;
         this.input.on("pointerdown", (pointer) => {
