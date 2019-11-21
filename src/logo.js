@@ -23,7 +23,7 @@ export default class Logo extends Phaser.Scene {
         this.load.atlasXML('zombie', zombieImage, zombieXml);
         this.load.json('shapes', shapeZombie);
         this.load.image('background-top', backgroundTopImage);
-        this.load.image("logo", logoImg);
+        this.load.image('logo', logoImg);
         this.load.image('red', logoRed);
 
         this.matter.world.setBounds(0, 300, 600, 600, 150)
@@ -59,7 +59,8 @@ export default class Logo extends Phaser.Scene {
 
         var top = 300;
 
-        const background_top = this.add.sprite(0, 0, "background-top");
+        const background_top = this.add.sprite(300, 100, "background-top");
+        background_top.setDisplaySize(667, 400);
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
