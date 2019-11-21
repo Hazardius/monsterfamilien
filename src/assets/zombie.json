@@ -29,5 +29,83 @@
 				]
 			}
 		]
+	},
+	"clear-trash-bag": {
+		"type": "fromPhysicsEditor",
+		"label": "clear-trash-bag",
+		"isStatic": false,
+		"density": 0.10000000149011612,
+		"restitution": 0,
+		"friction": 0.10000000149011612,
+		"frictionAir": 0.009999999776482582,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"vertices": [
+					[ { "x":232, "y":6 }, { "x":103, "y":14 }, { "x":102, "y":39 }, { "x":154, "y":88 }, { "x":198, "y":85 } ],
+					[ { "x":8, "y":388 }, { "x":101, "y":442 }, { "x":134, "y":442 }, { "x":198, "y":85 }, { "x":154, "y":88 }, { "x":54, "y":112 }, { "x":11, "y":171 } ],
+					[ { "x":300, "y":123 }, { "x":198, "y":85 }, { "x":134, "y":442 }, { "x":270, "y":439 }, { "x":362, "y":252 }, { "x":342, "y":180 } ],
+					[ { "x":335, "y":404 }, { "x":356, "y":364 }, { "x":362, "y":252 }, { "x":270, "y":439 } ]
+				]
+			}
+		]
+	},
+	"moon": {
+		"type": "fromPhysicsEditor",
+		"label": "moon",
+		"isStatic": false,
+		"density": 0.10000000149011612,
+		"restitution": 0,
+		"friction": 0.10000000149011612,
+		"frictionAir": 0.009999999776482582,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"circle": {
+					"x": 40.63829787234043,
+					"y": 39.14893617021277,
+					"radius": 34.041118387407835
+				}
+			}
+		]
+	},
+	"character_zombie_side": {
+		"type": "fromPhysicsEditor",
+		"label": "character_zombie_side",
+		"isStatic": false,
+		"density": 0.10000000149011612,
+		"restitution": 0,
+		"friction": 0.10000000149011612,
+		"frictionAir": 0.009999999776482582,
+		"frictionStatic": 0.5,
+		"collisionFilter": {
+			"group": 0,
+			"category": 1,
+			"mask": 255
+		},
+		"fixtures": [
+			{
+				"label": "",
+				"isSensor": false,
+				"vertices": [
+					[ { "x":77, "y":37 }, { "x":54, "y":28 }, { "x":26, "y":44 }, { "x":22, "y":69 }, { "x":29, "y":78 }, { "x":68, "y":93 }, { "x":75, "y":70 } ],
+					[ { "x":29, "y":128 }, { "x":69, "y":128 }, { "x":76, "y":116 }, { "x":68, "y":93 }, { "x":29, "y":78 }, { "x":22, "y":107 } ]
+				]
+			}
+		]
 	}
 }

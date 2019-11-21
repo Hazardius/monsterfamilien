@@ -70,6 +70,8 @@ export default class Logo extends Phaser.Scene {
             zombie.direction = 1;
         } else if (zombie.x > 475) {
             zombie.direction = -1;
+        } else if (Phaser.Math.Between(0, 1000) > 995) {
+            zombie.direction = -zombie.direction;
         }
         zombie.setVelocity(zombie.direction * 0.5);
     }
@@ -92,7 +94,7 @@ export default class Logo extends Phaser.Scene {
             {
                 this.zombie.setTexture("zombie", "side");
                 this.zombiestate = 1;
-            } else if (this.zombie.y > 860 && this.zombie.y <= 870) {
+            } else if (this.zombie.y > 850 && this.zombie.y <= 870) {
                 this.move_around(this.zombie);
             }
         } else {
@@ -138,24 +140,18 @@ export default class Logo extends Phaser.Scene {
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
 
-        this.zombie = this.matter.add.sprite(400, top - 200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
+        this.zombie = this.matter.add.sprite(400, top - 200, "zombie", "fallDown", {shape: shapes.character_zombie_side});
         this.setinteractive(this.zombie);
         this.zombiestate = 1;
         this.zombie.direction = 1;
 
-        function move(x, y)
-        {
-            console.log(" " + x + " " + y);
-        }
-        this.zombie.on("move", move);
-
-        const moon = this.matter.add.sprite(200, top, "background", "moon.png");
+        const moon = this.matter.add.sprite(200, top, "background", "moon.png", { shape: shapes.moon });
         this.setinteractive(moon);
 
-        const decoration = this.add.image(200, top + 300, "background", "cactus1.png");
+        const decoration = this.add.image(50, top + 300, "background", "cactus1.png").setDepth(3);
         this.setinteractiveX(decoration);
 
-        const decoration2 = this.add.image(550, top + 300, "background", "treeDead.png");
+        const decoration2 = this.add.image(550, top + 300, "background", "treeDead.png").setDepth(3);
         this.setinteractiveX(decoration2);
 
         const trash = [];
@@ -203,9 +199,9 @@ export default class Logo extends Phaser.Scene {
         this.input.on("pointerdown", (pointer) => {
             var changed = false;
 
-            // let clickDelay = this.time.now - lastTime;
-            // lastTime = this.time.now;
-            // if(clickDelay < 350) {
+            let clickDelay = this.time.now - lastTime;
+            lastTime = this.time.now;
+            if(clickDelay > 350) {
                 if (pointer.y < 250 && pointer.y > 150)
                 {
                     if (pointer.x < 525)
@@ -214,37 +210,38 @@ export default class Logo extends Phaser.Scene {
                         {
                             if (pointer.x < 325 && pointer.x > 275)
                             {
-                                var new_mixed = this.matter.add.sprite(300, 350, "trash-bag", "castleWallAlt.png").setDepth(1);
+                                var new_mixed = this.matter.add.sprite(300, 350, "trash-bag", null, {shape: shapes["clear-trash-bag"]}).setDepth(1);
                                 new_mixed.tint = 0x00FF00;
                                 new_mixed.setDisplaySize(50, 50);
+                                new_mixed.setRotation(Phaser.Math.Between(0, 360));
                                 trash.push(new_mixed);
                                 this.mixed++;
                                 changed = true;
                             } else if (pointer.x > 375) {
-                                var new_paper = this.matter.add.sprite(400, 350, "trash-bag", "castleWallAlt.png").setDepth(1);
+                                var new_paper = this.matter.add.sprite(400, 350, "trash-bag", null, {shape: shapes["clear-trash-bag"]}).setDepth(1);
                                 new_paper.tint = 0x0000FF;
                                 new_paper.setDisplaySize(50, 50);
+                                new_paper.setRotation(Phaser.Math.Between(0, 360));
                                 trash.push(new_paper);
                                 this.paper++;
                                 changed = true;
                             }
                         } else if (pointer.x > 475) {
-                            var new_plastic = this.matter.add.sprite(500, 350, "trash-bag", "castleWallAlt.png").setDepth(1);
+                            var new_plastic = this.matter.add.sprite(500, 350, "trash-bag", null, {shape: shapes["clear-trash-bag"]}).setDepth(1);
                             new_plastic.tint = 0xFFFFFF;
                             new_plastic.setDisplaySize(50, 50);
+                            new_plastic.setRotation(Phaser.Math.Between(0, 360));
                             trash.push(new_plastic);
                             this.plastic++;
                             changed = true;
                         }
                     }
                 }
-            // }
+            }
 
             if (changed)
             {
-                console.log(this.mixed, this.plastic, this.paper);
                 var score = this.magicFormula(this.mixed, this.plastic, this.paper);
-                console.log(score);
                 this.tweens.add({
                     targets: fog,
                     y: score*6,
