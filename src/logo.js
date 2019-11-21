@@ -144,8 +144,6 @@ export default class Logo extends Phaser.Scene {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350) {
-                console.log(pointer.x)
-                console.log(pointer.y)
                 if (pointer.y < 250 && pointer.y > 150)
                 {
                     if (pointer.x < 525)
