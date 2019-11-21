@@ -125,6 +125,10 @@ export default class Logo extends Phaser.Scene {
         });
 //        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
 
+        const background_top = this.add.sprite(300, 120, "background-top");
+        background_top.setDisplaySize(600, 360);
+        background_top.tint = 0x808080;
+
         const trash_pipe_mixed = this.add.sprite(300, 250, "background", "tower.png");
         trash_pipe_mixed.tint = 0x00FF00;
         trash_pipe_mixed.setDisplaySize(75, 400);
@@ -167,9 +171,6 @@ export default class Logo extends Phaser.Scene {
                 }
             }
         });
-
-        const background_top = this.add.sprite(300, 120, "background-top");
-        background_top.setDisplaySize(600, 360).setDepth(10);
 
         const soil_layer = this.add.sprite(300, 300, "soil-layer");
         soil_layer.setDisplaySize(800, 200).setDepth(10);
