@@ -70,6 +70,20 @@ export default class Logo extends Phaser.Scene {
             }
         }
     }
+        /*
+            (Min(100, T / 30) + 
+            Max(0,Min(100, (((G/T) - 0.2) / 0.8)*100 ))) / 2;
+        */
+
+    function magicFormula(rest, plast, papir)
+    {
+        var total = rest + plast + papir;
+
+        var restscore = Math.min(100, (total*100) / 30);
+        var ratio = (((rest / total) - 0.2) / 0.8) * 100;
+
+        return (restscore + ratio) / 2;
+    }
 
     create() {
         var shapes = this.cache.json.get('shapes');
