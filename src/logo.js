@@ -20,11 +20,31 @@ export default class Logo extends Phaser.Scene {
         // Load a texture atlas - with multiple images (see xml for names)
         // Or call var atlasTexture = this.textures.get('background').getFrameNames();
         this.load.atlasXML('background', backgroundImage, backgroundXml);
-        this.load.atlasXML('background-top', backgroundTopImage, backgroundXml);
         this.load.atlasXML('zombie', zombieImage, zombieXml);
         this.load.json('shapes', shapeZombie);
+        this.load.image('background-top', backgroundTopImage);
         this.load.image("logo", logoImg);
         this.load.image('red', logoRed);
+
+        this.matter.world.setBounds(0, 300, 600, 600, 150)
+    };
+
+    setinteractive(o) {
+        o.setInteractive();
+        o.on('drag', function (pointer, dragX, dragY) {
+            // Should take time into account - for slow updates:
+            this.setVelocity(dragX - this.x, dragY - this.y);
+        });
+        this.input.setDraggable(o);
+    };
+
+    setinteractiveX(o) {
+        o.setInteractive();
+        o.on('drag', function (pointer, dragX, dragY) {
+            // Should take time into account - for slow updates:
+            this.setPosition(dragX, this.y);
+        });
+        this.input.setDraggable(o);
     };
 
     create() {
@@ -37,20 +57,20 @@ export default class Logo extends Phaser.Scene {
 
         var shapes = this.cache.json.get('shapes');
 
+        var top = 300;
 
-        this.matter.add.mouseSpring();
+        const background_top = this.add.sprite(0, 0, "background-top");
 
-        const background_top = this.matter.add.sprite(0, 0, "background-top")
-        const logo3 = this.matter.add.sprite(500, 200, "background", "cloud4.png");
-        const logo = this.matter.add.sprite(400, 200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
+        const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
+        this.setinteractiveX(cloud);
 
-        const moon = this.matter.add.sprite(200, 0, "background", "moon.png");
-        logo.setInteractive();
-        logo.on('drag', function (pointer, dragX, dragY) {
-            // Should take time into account - for slow updates:
-            this.setVelocity(dragX - this.x, dragY - this.y);
-        });
-        this.input.setDraggable(logo);
+        const zombie = this.matter.add.sprite(400, top +200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
+        this.setinteractive(zombie);
+
+        const moon = this.matter.add.sprite(200, top, "background", "moon.png");
+        this.setinteractive(moon);
+
+        emitter.startFollow(zombie);
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);
@@ -71,8 +91,6 @@ export default class Logo extends Phaser.Scene {
         logo.on('dragend', function (pointer) {
             this.clearTint();
         });*/
-
-        emitter.startFollow(logo);
 
 /*        this.physics.startSystem(Phaser.Physics.P2JS);
         this.physics.p2.enable([logo], true)*/
