@@ -1,6 +1,7 @@
 import logoImg from "./assets/logo.png";
 import logoRed from "./assets/red.png";
 import shapeZombie from "./assets/zombie.json";
+import fogImage from './assets/fog2.png'
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
@@ -25,6 +26,7 @@ export default class Logo extends Phaser.Scene {
         this.load.image("logo", logoImg);
         this.load.image('red', logoRed);
         this.load.image('backgroundForest', backgroundForest);
+        this.load.image('fog', fogImage);
 
         this.matter.world.setBounds(0, 300, 600, 600, 150)
     };
@@ -59,8 +61,9 @@ export default class Logo extends Phaser.Scene {
 
         var top = 600;
 
-        const background = this.add.sprite(300, top, "backgroundForest");
+        const background = this.add.sprite(300, top + 100, "backgroundForest");
         background.setDisplaySize(600, 600);
+        // background.tint = 0x909090;
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
@@ -72,6 +75,18 @@ export default class Logo extends Phaser.Scene {
         this.setinteractive(moon);
 
         emitter.startFollow(zombie);
+
+        const fog = this.add.sprite(300, top, "fog");
+        var score = 50;
+        fog.y = top - score*6;
+
+        this.tweens.add({
+            targets: fog,
+            y: 600,
+            duration: 8800,
+            ease: 'Linear'
+        });
+//        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);
