@@ -4,6 +4,8 @@ import shapeZombie from "./assets/zombie.json";
 import fogImage from './assets/fog2.png'
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
+import backgroundTopImage from "./assets/photo-elements/bergen-bryggen_1920.jpg";
+import soilLayerImage from "./assets/photo-elements/soil-layer_1280.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
 import backgroundForest from "./assets/background-elements-redux/Backgrounds/backgroundForest.png";
@@ -23,8 +25,10 @@ export default class Logo extends Phaser.Scene {
         this.load.atlasXML('background', backgroundImage, backgroundXml);
         this.load.atlasXML('zombie', zombieImage, zombieXml);
         this.load.json('shapes', shapeZombie);
-        this.load.image("logo", logoImg);
+        this.load.image('background-top', backgroundTopImage);
+        this.load.image('logo', logoImg);
         this.load.image('red', logoRed);
+        this.load.image('soil-layer', soilLayerImage)
         this.load.image('backgroundForest', backgroundForest);
         this.load.image('fog', fogImage);
 
@@ -65,6 +69,12 @@ export default class Logo extends Phaser.Scene {
         background.setDisplaySize(600, 600);
         // background.tint = 0x909090;
 
+        const background_top = this.add.sprite(300, 120, "background-top");
+        background_top.setDisplaySize(600, 360);
+
+        const soil_layer = this.add.sprite(300, 300, "soil-layer");
+        soil_layer.setDisplaySize(800, 200);
+
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
 
@@ -73,6 +83,8 @@ export default class Logo extends Phaser.Scene {
 
         const moon = this.matter.add.sprite(200, top, "background", "moon.png");
         this.setinteractive(moon);
+
+        const trash = [];
 
         emitter.startFollow(zombie);
 
@@ -87,6 +99,15 @@ export default class Logo extends Phaser.Scene {
             ease: 'Linear'
         });
 //        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
+
+        let lastTime = 0;
+        this.input.on("pointerdown", (pointer) => {
+            let clickDelay = this.time.now - lastTime;
+            lastTime = this.time.now;
+            if(clickDelay < 350) {
+                trash.push(this.matter.add.sprite(500, 350, "background", "castleWallAlt.png"));
+            }
+        });
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);
