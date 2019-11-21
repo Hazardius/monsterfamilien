@@ -54,13 +54,6 @@ export default class Logo extends Phaser.Scene {
     };
 
     create() {
-        var particles = this.add.particles('red');
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 0.5, end: 0 },
-            blendMode: 'ADD'
-        });
-
         var shapes = this.cache.json.get('shapes');
 
         var top = 600;
@@ -69,11 +62,12 @@ export default class Logo extends Phaser.Scene {
         background.setDisplaySize(600, 600);
         // background.tint = 0x909090;
 
-        const background_top = this.add.sprite(300, 120, "background-top");
-        background_top.setDisplaySize(600, 360);
-
-        const soil_layer = this.add.sprite(300, 300, "soil-layer");
-        soil_layer.setDisplaySize(800, 200);
+        var particles = this.add.particles('red');
+        var emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 0.5, end: 0 },
+            blendMode: 'ADD'
+        });
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
@@ -95,7 +89,7 @@ export default class Logo extends Phaser.Scene {
         this.tweens.add({
             targets: fog,
             y: 600,
-            duration: 8800,
+            duration: 1000,
             ease: 'Linear'
         });
 //        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
@@ -108,6 +102,13 @@ export default class Logo extends Phaser.Scene {
                 trash.push(this.matter.add.sprite(500, 350, "background", "castleWallAlt.png"));
             }
         });
+
+        const background_top = this.add.sprite(300, 120, "background-top");
+        background_top.setDisplaySize(600, 360);
+
+        const soil_layer = this.add.sprite(300, 300, "soil-layer");
+        soil_layer.setDisplaySize(800, 200);
+
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);

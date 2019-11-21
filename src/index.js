@@ -4,10 +4,11 @@ import Logo from "./logo.js";
 
 const config = {
   type: Phaser.AUTO,
+  backgroundColor: '#CFEFFC',
   physics: {
     default: 'matter',
     matter: {
-        debug: true,
+        debug: false,
         gravity: { y: 0.3 },
         setBounds: true
     }
