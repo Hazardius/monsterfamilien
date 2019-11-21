@@ -1,4 +1,5 @@
 import logoImg from "./assets/logo.png";
+import logoRed from "./assets/red.png"
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
@@ -19,14 +20,14 @@ export default class Logo extends Phaser.Scene {
         this.load.atlasXML('background', backgroundImage, backgroundXml);
         this.load.atlasXML('zombie', zombieImage, zombieXml);
         this.load.image("logo", logoImg);
-        this.load.image('red', 'http://labs.phaser.io/assets/particles/red.png');
+        this.load.image('red', logoRed);
     };
 
     create() {
         var particles = this.add.particles('red');
         var emitter = particles.createEmitter({
             speed: 100,
-            scale: { start: 1, end: 0 },
+            scale: { start: 0.5, end: 0 },
             blendMode: 'ADD'
         });
 
@@ -50,7 +51,7 @@ export default class Logo extends Phaser.Scene {
         logo.on('dragstart', function (pointer) {
             this.setTint(0x00ff00);
         });
-        
+
         logo.on('drag', function (pointer, dragX, dragY) {
             // Should take time into account - for slow updates:
             this.setVelocity(dragX - this.x, dragY - this.y);
@@ -68,4 +69,3 @@ export default class Logo extends Phaser.Scene {
         this.physics.p2.enable([logo], true)*/
     }
 }
-

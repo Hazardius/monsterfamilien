@@ -1,11 +1,9 @@
 import Phaser from "phaser";
 import Logo from "./logo.js";
 
+
 const config = {
   type: Phaser.AUTO,
-  parent: "phaser-example",
-  width: 800,
-  height: 600,
   physics: {
     default: 'matter',
     matter: {
@@ -13,6 +11,13 @@ const config = {
         gravity: { y: 0.3 },
         setBounds: true
     }
+  },
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'phaser-example',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 600,
+    height: 800
   },
   scene: [
     Logo
