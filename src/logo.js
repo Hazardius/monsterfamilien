@@ -94,17 +94,51 @@ export default class Logo extends Phaser.Scene {
         });
 //        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
 
+        const background_top = this.add.sprite(300, 120, "background-top");
+        background_top.setDisplaySize(600, 360);
+
+        const trash_pipe_mixed = this.add.sprite(300, 250, "background", "tower.png");
+        trash_pipe_mixed.tint = 0x00FF00;
+        trash_pipe_mixed.setDisplaySize(75, 400);
+        const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png");
+        trash_pipe_paper.tint = 0x0000FF;
+        trash_pipe_paper.setDisplaySize(75, 400);
+        const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png");
+        trash_pipe_plastic.tint = 0xFFFFFF;
+        trash_pipe_plastic.setDisplaySize(75, 400);
+
         let lastTime = 0;
         this.input.on("pointerdown", (pointer) => {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350) {
-                trash.push(this.matter.add.sprite(500, 350, "background", "castleWallAlt.png"));
+                console.log(pointer.x)
+                console.log(pointer.y)
+                if (pointer.y < 250 && pointer.y > 150)
+                {
+                    if (pointer.x < 525)
+                    {
+                        if (pointer.x < 425)
+                        {
+                            if (pointer.x < 325 && pointer.x > 275)
+                            {
+                                var new_mixed = this.matter.add.sprite(300, 350, "background", "castleWallAlt.png");
+                                new_mixed.tint = 0x00FF00;
+                                trash.push(new_mixed);
+                            } else if (pointer.x > 375) {
+                                var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png");
+                                new_paper.tint = 0x0000FF;
+                                trash.push(new_paper);
+                            }
+                        } else if (pointer.x > 475) {
+                            var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png");
+                            new_plastic.tint = 0xFFFFFF;
+                            trash.push(new_plastic);
+                        }
+                    }
+                }
             }
         });
-
-        const background_top = this.add.sprite(300, 120, "background-top");
-        background_top.setDisplaySize(600, 360);
 
         const soil_layer = this.add.sprite(300, 300, "soil-layer");
         soil_layer.setDisplaySize(800, 200);
