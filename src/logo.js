@@ -53,6 +53,17 @@ export default class Logo extends Phaser.Scene {
         this.input.setDraggable(o);
     };
 
+    move_around(zombie)
+    {
+        if (zombie.x < 125)
+        {
+            zombie.direction = 1;
+        } else if (zombie.x > 475) {
+            zombie.direction = -1;
+        }
+        zombie.setVelocity(zombie.direction * 0.5);
+    }
+
     update(time, delta)
     {
         if (this.zombie.y > 750)
@@ -61,6 +72,8 @@ export default class Logo extends Phaser.Scene {
             {
                 this.zombie.setTexture("zombie", "side");
                 this.zombiestate = 1;
+            } else if (this.zombie.y > 860 && this.zombie.y <= 870) {
+                this.move_around(this.zombie);
             }
         } else {
             if (this.zombiestate != 2)
@@ -93,6 +106,7 @@ export default class Logo extends Phaser.Scene {
         this.zombie = this.matter.add.sprite(400, top - 200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
         this.setinteractive(this.zombie);
         this.zombiestate = 1;
+        this.zombie.direction = 1;
 
         function move(x, y)
         {
