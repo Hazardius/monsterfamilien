@@ -171,24 +171,24 @@ export default class Logo extends Phaser.Scene {
         const trash_can_mixed = this.add.sprite(300, 200, "bossnettet");
         trash_can_mixed.tint = 0x00FF00;
         trash_can_mixed.setDisplaySize(75, 133);
-        const icon_mixed = this.add.sprite(300, 200, "mixedIcon");
-        icon_mixed.setDisplaySize(75, 133);
+        const icon_mixed = this.add.sprite(305, 220, "mixedIcon");
+        icon_mixed.setDisplaySize(55, 55);
         const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png");
         trash_pipe_paper.tint = 0x0000FF;
         trash_pipe_paper.setDisplaySize(75, 400);
         const trash_can_paper = this.add.sprite(400, 200, "bossnettet");
         trash_can_paper.tint = 0x0000FF;
         trash_can_paper.setDisplaySize(75, 133);
-        const icon_paper = this.add.sprite(300, 200, "paperIcon");
-        icon_paper.setDisplaySize(75, 133);
+        const icon_paper = this.add.sprite(405, 220, "paperIcon");
+        icon_paper.setDisplaySize(55, 55);
         const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png");
         trash_pipe_plastic.tint = 0xFFFFFF;
         trash_pipe_plastic.setDisplaySize(75, 400);
         const trash_can_plastic = this.add.sprite(500, 200, "bossnettet");
         trash_can_plastic.tint = 0xFFFFFF;
         trash_can_plastic.setDisplaySize(75, 133);
-        const icon_plastic = this.add.sprite(300, 200, "plasticIcon");
-        icon_plastic.setDisplaySize(75, 133);
+        const icon_plastic = this.add.sprite(505, 220, "plasticIcon");
+        icon_plastic.setDisplaySize(55, 55);
 
         let lastTime = 0;
         this.input.on("pointerdown", (pointer) => {
