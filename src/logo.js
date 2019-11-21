@@ -5,6 +5,7 @@ import backgroundXml from "./assets/background-elements-redux/Spritesheet/sprite
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
+import backgroundForest from "./assets/background-elements-redux/Backgrounds/backgroundForest.png";
 
 export default class Logo extends Phaser.Scene {
     constructor() {
@@ -23,6 +24,7 @@ export default class Logo extends Phaser.Scene {
         this.load.json('shapes', shapeZombie);
         this.load.image("logo", logoImg);
         this.load.image('red', logoRed);
+        this.load.image('backgroundForest', backgroundForest);
 
         this.matter.world.setBounds(0, 300, 600, 600, 150)
     };
@@ -55,7 +57,10 @@ export default class Logo extends Phaser.Scene {
 
         var shapes = this.cache.json.get('shapes');
 
-        var top = 300;
+        var top = 600;
+
+        const background = this.add.sprite(300, top, "backgroundForest");
+        background.setDisplaySize(600, 600);
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
