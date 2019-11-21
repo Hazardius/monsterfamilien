@@ -32,7 +32,7 @@ export default class Logo extends Phaser.Scene {
         this.load.image('backgroundForest', backgroundForest);
         this.load.image('fog', fogImage);
 
-        this.matter.world.setBounds(0, 300, 600, 600, 150)
+        this.matter.world.setBounds(0, 300, 600, 600, 300)
     };
 
     setinteractive(o) {
@@ -53,6 +53,24 @@ export default class Logo extends Phaser.Scene {
         this.input.setDraggable(o);
     };
 
+    update(time, delta)
+    {
+        if (this.zombie.y < 750)
+        {
+            if (this.zombiestate != 1)
+            {
+                this.zombie.setTexture("zombie", "side");
+                this.zombiestate = 1;
+            }
+        } else {
+            if (this.zombiestate != 2)
+            {
+                this.zombie.setTexture("zombie", "fallDown");
+                this.zombiestate = 2;
+            }
+        }
+    }
+
     create() {
         var shapes = this.cache.json.get('shapes');
 
@@ -72,15 +90,28 @@ export default class Logo extends Phaser.Scene {
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
 
-        const zombie = this.matter.add.sprite(400, top +200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
-        this.setinteractive(zombie);
+        this.zombie = this.matter.add.sprite(400, top - 200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
+        this.setinteractive(this.zombie);
+        this.zombiestate = 1;
+
+        function move(x, y)
+        {
+            console.log(" " + x + " " + y);
+        }
+        this.zombie.on("move", move);
 
         const moon = this.matter.add.sprite(200, top, "background", "moon.png");
         this.setinteractive(moon);
 
+        const decoration = this.add.image(200, top + 300, "background", "cactus1.png");
+        this.setinteractiveX(decoration);
+
+        const decoration2 = this.add.image(550, top + 300, "background", "treeDead.png");
+        this.setinteractiveX(decoration2);
+
         const trash = [];
 
-        emitter.startFollow(zombie);
+        emitter.startFollow(this.zombie);
 
         const fog = this.add.sprite(300, top, "fog");
         var score = 50;
@@ -104,11 +135,10 @@ export default class Logo extends Phaser.Scene {
         });
 
         const background_top = this.add.sprite(300, 120, "background-top");
-        background_top.setDisplaySize(600, 360);
+        background_top.setDisplaySize(600, 360).setDepth(10);
 
         const soil_layer = this.add.sprite(300, 300, "soil-layer");
-        soil_layer.setDisplaySize(800, 200);
-
+        soil_layer.setDisplaySize(800, 200).setDepth(10);
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);
