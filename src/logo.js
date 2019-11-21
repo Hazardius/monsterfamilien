@@ -71,7 +71,19 @@ export default class Logo extends Phaser.Scene {
         } else if (zombie.x > 475) {
             zombie.direction = -1;
         }
+        if (zombie.time_in_pos >= 2)
+        {
+            zombie.direction *= -2;
+            zombie.time_in_pos = 0;
+        }
         zombie.setVelocity(zombie.direction * 0.5);
+        if (zombie.last_pos - zombie.x < 3)
+        {
+            zombie.time_in_pos += 1;
+        } else {
+            zombie.last_pos = zombie.x;
+            zombie.time_in_pos = 0;
+        }
     }
 
     straighten_up(game_object)
@@ -142,6 +154,8 @@ export default class Logo extends Phaser.Scene {
         this.setinteractive(this.zombie);
         this.zombiestate = 1;
         this.zombie.direction = 1;
+        this.zombie.last_pos = this.zombie.x;
+        this.zombie.time_in_pos = 0;
 
         function move(x, y)
         {
