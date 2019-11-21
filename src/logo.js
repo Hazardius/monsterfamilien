@@ -7,6 +7,7 @@ import backgroundImage from "./assets/background-elements-redux/Spritesheet/spri
 import backgroundTopImage from "./assets/photo-elements/bergen-bryggen_1920.jpg";
 import bossnettetImage from "./assets/photo-elements/bossnettet.jpg";
 import soilLayerImage from "./assets/photo-elements/soil-layer_1280.png";
+import trashBagImage from "./assets/photo-elements/clear-trash-bag.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
 import backgroundForest from "./assets/background-elements-redux/Backgrounds/backgroundForest.png";
@@ -31,6 +32,7 @@ export default class Logo extends Phaser.Scene {
         this.load.json('shapes', shapeZombie);
         this.load.image('background-top', backgroundTopImage);
         this.load.image('bossnettet', bossnettetImage);
+        this.load.image('trash-bag', trashBagImage);
         this.load.image('logo', logoImg);
         this.load.image('red', logoRed);
         this.load.image('soil-layer', soilLayerImage)
@@ -214,17 +216,20 @@ export default class Logo extends Phaser.Scene {
                         {
                             if (pointer.x < 325 && pointer.x > 275)
                             {
-                                var new_mixed = this.matter.add.sprite(300, 350, "background", "castleWallAlt.png");
+                                var new_mixed = this.matter.add.sprite(300, 350, "trash-bag");
                                 new_mixed.tint = 0x00FF00;
+                                new_mixed.setDisplaySize(50, 50);
                                 trash.push(new_mixed);
                             } else if (pointer.x > 375) {
-                                var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png");
+                                var new_paper = this.matter.add.sprite(400, 350, "trash-bag");
                                 new_paper.tint = 0x0000FF;
+                                new_paper.setDisplaySize(50, 50);
                                 trash.push(new_paper);
                             }
                         } else if (pointer.x > 475) {
-                            var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png");
+                            var new_plastic = this.matter.add.sprite(500, 350, "trash-bag");
                             new_plastic.tint = 0xFFFFFF;
+                            new_plastic.setDisplaySize(50, 50);
                             trash.push(new_plastic);
                         }
                     }
