@@ -64,8 +64,8 @@ export default class Logo extends Phaser.Scene {
         const background = this.add.sprite(300, top, "backgroundForest");
         background.setDisplaySize(600, 600);
 
-        const background_top = this.add.sprite(300, 100, "background-top");
-        background_top.setDisplaySize(667, 400);
+        const background_top = this.add.sprite(300, 120, "background-top");
+        background_top.setDisplaySize(600, 360);
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
