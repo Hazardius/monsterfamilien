@@ -66,6 +66,16 @@ export default class Logo extends Phaser.Scene {
         zombie.setVelocity(zombie.direction * 0.5);
     }
 
+    straighten_up(game_object)
+    {
+        if (game_object.angle < -5)
+        {
+            game_object.angle += 1;
+        } else if (game_object.angle > 5) {
+            game_object.angle -= 1;
+        }
+    }
+
     update(time, delta)
     {
         if (this.zombie.y > 750)
@@ -84,6 +94,7 @@ export default class Logo extends Phaser.Scene {
                 this.zombiestate = 2;
             }
         }
+        this.straighten_up(this.zombie);
     }
         /*
             (Min(100, T / 30) +
@@ -198,7 +209,7 @@ export default class Logo extends Phaser.Scene {
                                 var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png");
                                 new_paper.tint = 0x0000FF;
                                 trash.push(new_paper);
-            }
+                            }
                         } else if (pointer.x > 475) {
                             var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png");
                             new_plastic.tint = 0xFFFFFF;
