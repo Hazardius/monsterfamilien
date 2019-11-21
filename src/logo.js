@@ -160,52 +160,50 @@ export default class Logo extends Phaser.Scene {
 
         emitter.startFollow(this.zombie);
 
-        const fog = this.add.sprite(300, top, "fog");
-        var score = 50;
-        fog.y = top;
+        const fog = this.add.sprite(300, 0, "fog");
 
-        this.tweens.add({
-            targets: fog,
-            y: top - 600 + score*6,
-            duration: 1000,
-            ease: 'Linear'
-        });
 //        this.add.tween(fog).to({x: 300, y: top + 600}, 1000, Phaser.Easing.Quadratic.InOut, true);
 
         const background_top = this.add.sprite(300, 120, "background-top");
         background_top.setDisplaySize(600, 360);
         background_top.tint = 0x808080;
 
-        const trash_pipe_mixed = this.add.sprite(300, 250, "background", "tower.png");
+        const trash_pipe_mixed = this.add.sprite(300, 250, "background", "tower.png").setDepth(2);
         trash_pipe_mixed.tint = 0x00FF00;
         trash_pipe_mixed.setDisplaySize(75, 400);
-        const trash_can_mixed = this.add.sprite(300, 200, "bossnettet");
+        const trash_can_mixed = this.add.sprite(300, 200, "bossnettet").setDepth(2);
         trash_can_mixed.tint = 0x00FF00;
         trash_can_mixed.setDisplaySize(75, 133);
-        const icon_mixed = this.add.sprite(305, 220, "mixedIcon");
+        const icon_mixed = this.add.sprite(305, 220, "mixedIcon").setDepth(2);
         icon_mixed.setDisplaySize(55, 55);
-        const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png");
+        const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png").setDepth(2);
         trash_pipe_paper.tint = 0x0000FF;
         trash_pipe_paper.setDisplaySize(75, 400);
-        const trash_can_paper = this.add.sprite(400, 200, "bossnettet");
+        const trash_can_paper = this.add.sprite(400, 200, "bossnettet").setDepth(2);
         trash_can_paper.tint = 0x0000FF;
         trash_can_paper.setDisplaySize(75, 133);
-        const icon_paper = this.add.sprite(405, 220, "paperIcon");
+        const icon_paper = this.add.sprite(405, 220, "paperIcon").setDepth(2);
         icon_paper.setDisplaySize(55, 55);
-        const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png");
+        const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png").setDepth(2);
         trash_pipe_plastic.tint = 0xFFFFFF;
         trash_pipe_plastic.setDisplaySize(75, 400);
-        const trash_can_plastic = this.add.sprite(500, 200, "bossnettet");
+        const trash_can_plastic = this.add.sprite(500, 200, "bossnettet").setDepth(2);
         trash_can_plastic.tint = 0xFFFFFF;
         trash_can_plastic.setDisplaySize(75, 133);
-        const icon_plastic = this.add.sprite(505, 220, "plasticIcon");
+        const icon_plastic = this.add.sprite(505, 220, "plasticIcon").setDepth(2);
         icon_plastic.setDisplaySize(55, 55);
+
+        this.mixed = 0;
+        this.paper = 0;
+        this.plastic = 0;
 
         let lastTime = 0;
         this.input.on("pointerdown", (pointer) => {
-            let clickDelay = this.time.now - lastTime;
-            lastTime = this.time.now;
-            if(clickDelay < 350) {
+            var changed = false;
+
+            // let clickDelay = this.time.now - lastTime;
+            // lastTime = this.time.now;
+            // if(clickDelay < 350) {
                 if (pointer.y < 250 && pointer.y > 150)
                 {
                     if (pointer.x < 525)
@@ -214,21 +212,40 @@ export default class Logo extends Phaser.Scene {
                         {
                             if (pointer.x < 325 && pointer.x > 275)
                             {
-                                var new_mixed = this.matter.add.sprite(300, 350, "background", "castleWallAlt.png");
+                                var new_mixed = this.matter.add.sprite(300, 350, "background", "castleWallAlt.png").setDepth(1);
                                 new_mixed.tint = 0x00FF00;
                                 trash.push(new_mixed);
+                                this.mixed++;
+                                changed = true;
                             } else if (pointer.x > 375) {
-                                var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png");
+                                var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png").setDepth(1);
                                 new_paper.tint = 0x0000FF;
                                 trash.push(new_paper);
+                                this.paper++;
+                                changed = true;
                             }
                         } else if (pointer.x > 475) {
-                            var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png");
+                            var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png").setDepth(1);
                             new_plastic.tint = 0xFFFFFF;
                             trash.push(new_plastic);
+                            this.plastic++;
+                            changed = true;
                         }
                     }
                 }
+            // }
+
+            if (changed)
+            {
+                console.log(this.mixed, this.plastic, this.paper);
+                var score = this.magicFormula(this.mixed, this.plastic, this.paper);
+                console.log(score);
+                this.tweens.add({
+                    targets: fog,
+                    y: score*6,
+                    duration: 1000,
+                    ease: 'Linear'
+                });
             }
         });
 
