@@ -55,7 +55,7 @@ export default class Logo extends Phaser.Scene {
 
     update(time, delta)
     {
-        if (this.zombie.y < 750)
+        if (this.zombie.y > 750)
         {
             if (this.zombiestate != 1)
             {
