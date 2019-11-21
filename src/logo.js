@@ -1,5 +1,6 @@
 import logoImg from "./assets/logo.png";
-import logoRed from "./assets/red.png"
+import logoRed from "./assets/red.png";
+import shapeZombie from "./assets/zombie.json";
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
@@ -19,6 +20,7 @@ export default class Logo extends Phaser.Scene {
         // Or call var atlasTexture = this.textures.get('background').getFrameNames();
         this.load.atlasXML('background', backgroundImage, backgroundXml);
         this.load.atlasXML('zombie', zombieImage, zombieXml);
+        this.load.json('shapes', shapeZombie);
         this.load.image("logo", logoImg);
         this.load.image('red', logoRed);
     };
@@ -31,18 +33,22 @@ export default class Logo extends Phaser.Scene {
             blendMode: 'ADD'
         });
 
-        const moon = this.matter.add.sprite(200, 0, "background", "moon.png");
-        moon.setInteractive();
-        moon.on('drag', function (pointer, dragX, dragY) {
-            // Should take time into account - for slow updates:
-            this.setVelocity(dragX - this.x, dragY - this.y);
-        });
-        this.input.setDraggable(moon);
+        var shapes = this.cache.json.get('shapes');
+
 
         this.matter.add.mouseSpring();
 
         const logo3 = this.matter.add.sprite(500, 200, "background", "cloud4.png");
-        const logo = this.matter.add.sprite(400, 200, "zombie", "fallDown");
+        const logo = this.matter.add.sprite(400, 200, "zombie", "fallDown", {shape: shapes.character_zombie_fallDown});
+
+        const moon = this.matter.add.sprite(200, 0, "background", "moon.png");
+        logo.setInteractive();
+        logo.on('drag', function (pointer, dragX, dragY) {
+            // Should take time into account - for slow updates:
+            this.setVelocity(dragX - this.x, dragY - this.y);
+        });
+        this.input.setDraggable(logo);
+
        /* logo.setInteractive();
         this.input.setDraggable(logo);
 

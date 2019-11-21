@@ -17,7 +17,7 @@ const config = {
     parent: 'phaser-example',
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 600,
-    height: 800
+    height: 1000
   },
   scene: [
     Logo
