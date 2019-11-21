@@ -90,7 +90,7 @@ export default class Logo extends Phaser.Scene {
             Max(0,Min(100, (((G/T) - 0.2) / 0.8)*100 ))) / 2;
         */
 
-    function magicFormula(rest, plast, papir)
+    magicFormula(rest, plast, papir)
     {
         var total = rest + plast + papir;
 
@@ -145,11 +145,11 @@ export default class Logo extends Phaser.Scene {
 
         const fog = this.add.sprite(300, top, "fog");
         var score = 50;
-        fog.y = top - score*6;
+        fog.y = top;
 
         this.tweens.add({
             targets: fog,
-            y: 600,
+            y: top - 600 + score*6,
             duration: 1000,
             ease: 'Linear'
         });
