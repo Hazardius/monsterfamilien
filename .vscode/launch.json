@@ -11,8 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "args": ["--out","bin/js/game.js"],
-            "preLaunchTask": "npm: install",
+            "preLaunchTask": "npm: start",
             "program": "${workspaceFolder}\\src\\index.js"
         }
     ]
