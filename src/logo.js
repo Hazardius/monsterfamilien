@@ -81,7 +81,18 @@ export default class Logo extends Phaser.Scene {
         const moon = this.matter.add.sprite(200, top, "background", "moon.png");
         this.setinteractive(moon);
 
+        const trash = [];
+
         emitter.startFollow(zombie);
+
+        let lastTime = 0;
+        this.input.on("pointerdown", (pointer) => {
+            let clickDelay = this.time.now - lastTime;
+            lastTime = this.time.now;
+            if(clickDelay < 350) {
+                trash.push(this.matter.add.sprite(500, 350, "background", "castleWallAlt.png"));
+            }
+        });
 
        /* logo.setInteractive();
         this.input.setDraggable(logo);
