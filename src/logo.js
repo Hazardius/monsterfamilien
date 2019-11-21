@@ -10,6 +10,9 @@ import soilLayerImage from "./assets/photo-elements/soil-layer_1280.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
 import backgroundForest from "./assets/background-elements-redux/Backgrounds/backgroundForest.png";
+import mixedIcon from './assets/mixed_icon.png';
+import paperIcon from './assets/paper_icon.png';
+import plasticIcon from './assets/plastic_icon.png';
 
 export default class Logo extends Phaser.Scene {
     constructor() {
@@ -33,6 +36,9 @@ export default class Logo extends Phaser.Scene {
         this.load.image('soil-layer', soilLayerImage)
         this.load.image('backgroundForest', backgroundForest);
         this.load.image('fog', fogImage);
+        this.load.image('mixedIcon', mixedIcon);
+        this.load.image('paperIcon', paperIcon);
+        this.load.image('plasticIcon', plasticIcon);
 
         this.matter.world.setBounds(0, 300, 600, 600, 300)
     };
@@ -66,6 +72,16 @@ export default class Logo extends Phaser.Scene {
         zombie.setVelocity(zombie.direction * 0.5);
     }
 
+    straighten_up(game_object)
+    {
+        if (game_object.angle < -5)
+        {
+            game_object.angle += 1;
+        } else if (game_object.angle > 5) {
+            game_object.angle -= 1;
+        }
+    }
+
     update(time, delta)
     {
         if (this.zombie.y > 750)
@@ -84,9 +100,10 @@ export default class Logo extends Phaser.Scene {
                 this.zombiestate = 2;
             }
         }
+        this.straighten_up(this.zombie);
     }
         /*
-            (Min(100, T / 30) + 
+            (Min(100, T / 30) +
             Max(0,Min(100, (((G/T) - 0.2) / 0.8)*100 ))) / 2;
         */
 
@@ -165,18 +182,24 @@ export default class Logo extends Phaser.Scene {
         const trash_can_mixed = this.add.sprite(300, 200, "bossnettet");
         trash_can_mixed.tint = 0x00FF00;
         trash_can_mixed.setDisplaySize(75, 133);
+        const icon_mixed = this.add.sprite(305, 220, "mixedIcon");
+        icon_mixed.setDisplaySize(55, 55);
         const trash_pipe_paper = this.add.sprite(400, 250, "background", "tower.png");
         trash_pipe_paper.tint = 0x0000FF;
         trash_pipe_paper.setDisplaySize(75, 400);
         const trash_can_paper = this.add.sprite(400, 200, "bossnettet");
         trash_can_paper.tint = 0x0000FF;
         trash_can_paper.setDisplaySize(75, 133);
+        const icon_paper = this.add.sprite(405, 220, "paperIcon");
+        icon_paper.setDisplaySize(55, 55);
         const trash_pipe_plastic = this.add.sprite(500, 250, "background", "tower.png");
         trash_pipe_plastic.tint = 0xFFFFFF;
         trash_pipe_plastic.setDisplaySize(75, 400);
         const trash_can_plastic = this.add.sprite(500, 200, "bossnettet");
         trash_can_plastic.tint = 0xFFFFFF;
         trash_can_plastic.setDisplaySize(75, 133);
+        const icon_plastic = this.add.sprite(505, 220, "plasticIcon");
+        icon_plastic.setDisplaySize(55, 55);
 
         let lastTime = 0;
         this.input.on("pointerdown", (pointer) => {
@@ -198,7 +221,7 @@ export default class Logo extends Phaser.Scene {
                                 var new_paper = this.matter.add.sprite(400, 350, "background", "castleWallAlt.png");
                                 new_paper.tint = 0x0000FF;
                                 trash.push(new_paper);
-            }
+                            }
                         } else if (pointer.x > 475) {
                             var new_plastic = this.matter.add.sprite(500, 350, "background", "castleWallAlt.png");
                             new_plastic.tint = 0xFFFFFF;
