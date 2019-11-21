@@ -4,6 +4,7 @@ import shapeZombie from "./assets/zombie.json";
 import backgroundXml from "./assets/background-elements-redux/Spritesheet/spritesheet_default.xml";
 import backgroundImage from "./assets/background-elements-redux/Spritesheet/spritesheet_default.png";
 import backgroundTopImage from "./assets/photo-elements/bergen-bryggen_1920.jpg";
+import soilLayerImage from "./assets/photo-elements/soil-layer_1280.png";
 import zombieXml from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.xml";
 import zombieImage from "./assets/kenney_tooncharacters1/Zombie/Tilesheet/character_zombie_sheet.png";
 import backgroundForest from "./assets/background-elements-redux/Backgrounds/backgroundForest.png";
@@ -26,6 +27,7 @@ export default class Logo extends Phaser.Scene {
         this.load.image('background-top', backgroundTopImage);
         this.load.image('logo', logoImg);
         this.load.image('red', logoRed);
+        this.load.image('soil-layer', soilLayerImage)
         this.load.image('backgroundForest', backgroundForest);
 
         this.matter.world.setBounds(0, 300, 600, 600, 150)
@@ -66,6 +68,9 @@ export default class Logo extends Phaser.Scene {
 
         const background_top = this.add.sprite(300, 120, "background-top");
         background_top.setDisplaySize(600, 360);
+
+        const soil_layer = this.add.sprite(300, 300, "soil-layer");
+        soil_layer.setDisplaySize(800, 200);
 
         const cloud = this.add.sprite(500, 100, "background", "cloud4.png");
         this.setinteractiveX(cloud);
